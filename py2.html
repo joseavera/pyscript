@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
+    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+</head>
+<body style="font-family: Arial; padding: 30px;">
+
+    <h2>📉 Optimizador de Volumen (IA Básica)</h2>
+    <div id="consola" style="background: #222; color: #0f0; padding: 20px; border-radius: 5px;"></div>
+
+    <script type="py">
+        from pyscript import display
+
+        # PARAMETROS BASICOS
+        volumen = 100          # Nuestro "Error" a reducir
+        tasa_giro = 0.2        # Learning Rate (Bajamos 20% cada vez)
+        intentos = 8           # Epochs
+
+        display("Iniciando secuencia de silenciado...", target="consola")
+        display("----------------------------------", target="consola")
+
+        for paso in range(intentos):
+            # Calculamos cuánto bajar
+            ajuste = volumen * tasa_giro
+            
+            # Aplicamos el ajuste (Optimización)
+            volumen = volumen - ajuste
+            
+            display(f"Paso {paso+1}: Volumen actual = {volumen:.1f}%", target="consola")
+
+            # Early Stopping (Si ya casi no se oye, paramos)
+            if volumen < 5:
+                display(">>> Volumen mínimo alcanzado. IA satisfecha.", target="consola")
+                break
+    </script>
+</body>
+</html>
