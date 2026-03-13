@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Laboratorio de IA: Simulador de Atleta</title>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
+    <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+</head>
+<body style="font-family: sans-serif; padding: 20px; background-color: #f0f2f5;">
+
+    <h2>🏃‍♂️ Simulador de Rendimiento Físico (IA)</h2>
+    <p>Este modelo predice la mejora técnica basada en tus datos del patio.</p>
+    
+    <div id="output" style="background: white; padding: 15px; border-radius: 8px; border: 1px solid #ccc; min-height: 100px;">
+        </div>
+
+    <script type="py">
+        from pyscript import display
+
+        # 1. DATOS RECUPERADOS DE LA MISIÓN
+        # (Los alumnos pueden cambiar estos valores manualmente)
+        atleta = "Equipo Dinamita"
+        error_inicial = 20.0  # Errores en la Vuelta 1
+        tasa_mejora = 0.3     # Learning Rate calculado
+        epochs = 10           # Proyección de repeticiones
+
+        resultados = []
+        resultados.append(f"Iniciando simulación para: {atleta}")
+        resultados.append("-" * 40)
+
+        # 2. LÓGICA DE OPTIMIZACIÓN
+        for vuelta in range(1, epochs + 1):
+            ajuste = error_inicial * tasa_mejora
+            error_inicial -= ajuste
+            
+            mensaje = f"Vuelta {vuelta}: Error proyectado = {error_inicial:.2f}"
+            resultados.append(mensaje)
+
+            # 3. EARLY STOPPING (Paro Temprano)
+            if error_inicial < 1.0:
+                resultados.append(">>> ¡META ALCANZADA! Técnica dominada.")
+                break
+
+        # Mostrar los resultados en la página web
+        for r in resultados:
+            display(r, target="output")
+    </script>
+
+</body>
+</html>
